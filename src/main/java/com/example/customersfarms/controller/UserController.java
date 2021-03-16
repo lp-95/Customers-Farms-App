@@ -54,11 +54,13 @@ public class UserController {
     }
 
     @PostMapping( "/token-refresh" )
+    @PreAuthorize( "hasRole('USER')" )
     public ResponseEntity<?> refreshToken( @Valid @RequestBody TokenDto tokenDto ) {
         return new ResponseEntity<>( this.authService.refreshToken( tokenDto ), HttpStatus.OK );
     }
 
     @PostMapping( "logout" )
+    @PreAuthorize( "hasRole('USER')" )
     public ResponseEntity<?> logout( @Valid @RequestBody TokenDto tokenDto ) {
         this.authService.logOut( tokenDto );
         return ResponseEntity.ok().build();

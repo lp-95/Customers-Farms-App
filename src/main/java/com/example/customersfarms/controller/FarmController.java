@@ -36,11 +36,13 @@ public class FarmController {
     }
 
     @PutMapping( "/update-farm/{id}" )
+    @PreAuthorize( "hasRole('USER')" )
     public ResponseEntity<?> updateFarm( @Valid @PathVariable Long id, @RequestBody FarmDto dto ) {
         return new ResponseEntity<>( this.farmService.updateFarm( id, dto), HttpStatus.OK );
     }
 
     @DeleteMapping( "/delete-farm/{id}" )
+    @PreAuthorize( "hasRole('ADMIN')" )
     public ResponseEntity<?> deleteFarm( @PathVariable Long id ) {
         this.farmService.deleteFarm( id );
         return ResponseEntity.ok().build();
